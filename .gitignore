@@ -1,0 +1,7 @@
+# Ignore documents directory content
+documents/*
+!documents/.gitkeep
+
+# Ignore results directory content
+results/*
+!results/.gitkeep
