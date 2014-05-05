@@ -39,8 +39,10 @@ var doc = app.open(file);
 var export_format = null;
 if (format == 'png') {
   export_format = ExportFormat.PNG_FORMAT;
+  app.pngExportPreferences.exportResolution = Number(quality);
 } else if (format == 'jpeg') {
   export_format = ExportFormat.JPG;
+  app.jpegExportPreferences.exportResolution = Number(quality);
 }
 doc.exportFile(export_format, img_file);
 
