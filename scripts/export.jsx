@@ -40,6 +40,7 @@ if (config != null) {
     }
     else
       app.pngExportPreferences.pngExportRange = PNGExportRangeEnum.EXPORT_ALL;
+    app.pngExportPreferences.exportingSpread = (config['spreads'] == 'true');
   } 
   else if (config['format'] == 'jpeg') {
     export_format = ExportFormat.JPG;
@@ -50,6 +51,7 @@ if (config != null) {
     }
     else
       app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.EXPORT_ALL;
+    app.jpegExportPreferences.exportingSpread = (config['spreads'] == 'true');
   }
 
   doc.exportFile(export_format, img_file);
