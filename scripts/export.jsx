@@ -1,3 +1,14 @@
+// This script purpose is to export an indesign document (fully or partially)
+// The parameters are the following :
+//   - "document" : the document name, without the .indd extension, must be stored in the 'documents' directory
+//   - "format" :  the format to export the image (jpeg or png). The default value is 'jpeg'
+//   - 'pages' : The pages to export. By default, all the pages are exported, in separated files. Example of input : "1-3, 4, 7"
+//   - "quality" : the resolution of the export (the range is between 1 and 2400). The default value is '100'
+//   - 'spreads' : if set to true, the spreads will be exported as well.
+//
+// The only required parameter is the document name.
+//
+
 function load_parameters(args, default_values) {
   var hash = {};
   for (var i = 0; i < args.length; i++) {
