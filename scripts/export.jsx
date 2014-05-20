@@ -1,6 +1,6 @@
 // This script purpose is to export an indesign document (fully or partially)
 // The parameters are the following :
-//   - "document" : the document name, without the .indd extension, must be stored in the 'documents' directory
+//   - "document" : /path/to/the/document, without the .indd extension, must be stored in the 'documents' directory (for now...)
 //   - "format" :  the format to export the image (jpeg or png). The default value is 'jpeg'
 //   - 'pages' : The pages to export. By default, all the pages are exported, in separated files. Example of input : "1-3, 4, 7"
 //   - "quality" : the resolution of the export (the range is between 1 and 2400). The default value is '100'
@@ -22,9 +22,7 @@ var config = load_parameters(['document', 'format', 'size', 'quality', 'pages', 
   });
 
 if (config != null) {
-  var path = '/Users/detass_g/Etna/EIP/InDesign-Scripts/';
-  var file = new File(path + 'documents/' + config['document'] + '.indd');
-  var img_file = new File(path + 'results/' + config['document'] + '.' + config['format']);
+  var file = new File(config['document'] + '.indd');
 
   var doc = app.open(file);
   var export_format = null;
@@ -50,7 +48,7 @@ if (config != null) {
       app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.EXPORT_ALL;
     app.jpegExportPreferences.exportingSpread = (config['spreads'] == 'true');
   }
-
+  var img_file = new File(doc.filePath + '/../results/' + doc.name + '.' + config['format']);
   doc.exportFile(export_format, img_file);
   doc.close();
 }
