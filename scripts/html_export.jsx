@@ -18,7 +18,7 @@ function write_xml_file(file, xml) {
   file.open("w", "TEXT", "????");
   file.write("\uFEFF");
   file.lineFeed = "unix";
-  file.write('<!DOCTYPE html>');
+  file.write('<!DOCTYPE html>\n');
   file.write(xml.toString());
   file.close();
 };
@@ -29,6 +29,19 @@ if (config != null) {
   var xml = new XML("<body>");
   var img_file = new File(doc.filePath + '/../results/' + doc.name + '.html');
   doc.exportFile(ExportFormat.HTML, img_file);
+  for (var i = 0; i < doc.spreads.count(); i++)
+  {
+    var spread = doc.spreads[i];
+    var xml_spread = new XML("<div" + " id=\"spread-" + i + '" class="spread"' +">");
+    for (var j = 0; j < spread.pages.count(); j++)
+    {
+      var page = spread.pages[j];
+      var xml_page = new XML("<div" + ' id=\"page-' + j + '" class="page"' + ">");
+      xml_spread.appendChild(xml_page);
+    }
+    xml.appendChild(xml_spread);
+
+  }
   var html = get_html_structure();
   html.appendChild(xml);
   var xml_file = new File(doc.filePath + '/../results/' + doc.name + '.xml');
