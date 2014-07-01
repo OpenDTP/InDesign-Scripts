@@ -36,7 +36,17 @@ if (config != null) {
     for (var j = 0; j < spread.pages.count(); j++)
     {
       var page = spread.pages[j];
-      var xml_page = new XML("<div" + ' id="' + page.id + '"' + ' class="page"' + ">");
+      var xml_page = new XML("<div" + ' id="' + page.id + '" class="page"' + ">");
+      for (var k = 0; k < page.textFrames.count(); k++)
+      {
+        var text_frame = page.textFrames[k];
+        if (text_frame.contentType == ContentType.TEXT_TYPE)
+        {
+          var xml_frame = new XML("<div" + ' id="' + text_frame.id + '" class="block"' + '>');
+          xml_frame.appendChild(text_frame.contents);
+          xml_page.appendChild(xml_frame);
+        }
+      }
       xml_spread.appendChild(xml_page);
     }
     xml.appendChild(xml_spread);
