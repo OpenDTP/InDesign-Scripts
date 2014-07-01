@@ -32,11 +32,11 @@ if (config != null) {
   for (var i = 0; i < doc.spreads.count(); i++)
   {
     var spread = doc.spreads[i];
-    var xml_spread = new XML("<div" + " id=\"spread-" + i + '" class="spread"' +">");
+    var xml_spread = new XML("<div" + ' id="' + spread.id + '" class="spread"' +">");
     for (var j = 0; j < spread.pages.count(); j++)
     {
       var page = spread.pages[j];
-      var xml_page = new XML("<div" + ' id=\"page-' + j + '" class="page"' + ">");
+      var xml_page = new XML("<div" + ' id="' + page.id + '"' + ' class="page"' + ">");
       xml_spread.appendChild(xml_page);
     }
     xml.appendChild(xml_spread);
