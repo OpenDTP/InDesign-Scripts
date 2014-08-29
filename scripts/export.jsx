@@ -9,7 +9,21 @@
 // The only required parameter is the document name.
 //
 
-#include "lib/parameters.jsx"
+function load_parameters(args, default_values) {
+  var hash = {};
+  for (var i = 0; i < args.length; i++) {
+    hash[args[i]] = app.scriptArgs.getValue(args[i]);
+    if (hash[args[i]].length == 0) {
+      if (args[i] in default_values)
+        hash[args[i]] = default_values[args[i]];
+      else {
+        message = 'Error : undefined required parameter : ' + args[i];
+        return null;
+      }
+    }
+  }
+  return hash;
+}
 
 var message = 'OK';
 var config = load_parameters(['document', 'format', 'size', 'quality', 'pages', 'spreads'], 
@@ -22,14 +36,14 @@ var config = load_parameters(['document', 'format', 'size', 'quality', 'pages', 
   });
 
 if (config != null) {
-  var file = new File(config['document'] + '.indd');
+  var file = new File(config['document']);
 
   var doc = app.open(file);
   var export_format = null;
   if (config['format'] == 'png') {
     export_format = ExportFormat.PNG_FORMAT;
     app.pngExportPreferences.exportResolution = Number(config['quality']);
-    if (config['pages']!= null) {
+    if (config['pages'] != null) {
       app.pngExportPreferences.pngExportRange = PNGExportRangeEnum.EXPORT_RANGE;
       app.pngExportPreferences.pageString = config['pages'];
     }
@@ -48,8 +62,9 @@ if (config != null) {
       app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.EXPORT_ALL;
     app.jpegExportPreferences.exportingSpread = (config['spreads'] == 'true');
   }
-  var img_file = new File(doc.filePath + '/../results/' + doc.name + '.' + config['format']);
+  var img_file = new File('/c/Data/Exports/' + doc.name + '.' + config['format']);
   doc.exportFile(export_format, img_file);
+  message = img_file.name;
   doc.close();
 }
 
