@@ -1,6 +1,6 @@
 // This script purpose is to export an indesign document (fully or partially)
 // The parameters are the following :
-//   - "document" : /path/to/the/document, without the .indd extension, must be stored in the 'documents' directory (for now...)
+//   - "document" : /path/to/the/document, the path should be inside the NFS.
 //   - "format" :  the format to export the image (jpeg or png). The default value is 'jpeg'
 //   - 'pages' : The pages to export. By default, all the pages are exported, in separated files. Example of input : "1-3, 4, 7"
 //   - "quality" : the resolution of the export (the range is between 1 and 2400). The default value is '100'
