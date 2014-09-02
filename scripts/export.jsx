@@ -62,7 +62,7 @@ if (config != null) {
       app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.EXPORT_ALL;
     app.jpegExportPreferences.exportingSpread = (config['spreads'] == 'true');
   }
-  var img_file = new File('/c/Data/Exports/' + doc.name + '.' + config['format']);
+  var img_file = new File('/d/Exports/' + doc.name + '.' + config['format']);
   doc.exportFile(export_format, img_file);
   message = img_file.name;
   doc.close();
