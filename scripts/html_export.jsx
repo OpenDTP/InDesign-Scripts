@@ -1,4 +1,18 @@
-#include "lib/parameters.jsx";
+function load_parameters(args, default_values) {
+  var hash = {};
+  for (var i = 0; i < args.length; i++) {
+    hash[args[i]] = app.scriptArgs.getValue(args[i]);
+    if (hash[args[i]].length == 0) {
+      if (args[i] in default_values)
+        hash[args[i]] = default_values[args[i]];
+      else {
+        message = 'Error : undefined required parameter : ' + args[i];
+        return null;
+      }
+    }
+  }
+  return hash;
+}
 
 var message = 'OK';
 var config = load_parameters(['document'], {});
@@ -24,7 +38,7 @@ function write_xml_file(file, xml) {
 };
 
 if (config != null) {
-  var file = new File(config['document'] + '.indd');
+  var file = new File(config['document']);
   var doc = app.open(file);
   var xml = new XML("<body>");
   var img_file = new File(doc.filePath + '/../results/' + doc.name + '.html');
