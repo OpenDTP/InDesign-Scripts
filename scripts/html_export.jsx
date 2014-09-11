@@ -41,7 +41,7 @@ if (config != null) {
   var file = new File(config['document']);
   var doc = app.open(file);
   var xml = new XML("<body>");
-  var img_file = new File(doc.filePath + '/../results/' + doc.name + '.html');
+  var img_file = new File('/d/Exports/' + doc.name + '.html');
   doc.exportFile(ExportFormat.HTML, img_file);
   for (var i = 0; i < doc.spreads.count(); i++)
   {
@@ -68,8 +68,9 @@ if (config != null) {
   }
   var html = get_html_structure();
   html.appendChild(xml);
-  var xml_file = new File(doc.filePath + '/../results/' + doc.name + '.xml');
+  var xml_file = new File('/d/Exports/' + doc.name + '.xml');
   write_xml_file(xml_file, html);
+  message = xml_file.name;
   doc.close();
 }
 
